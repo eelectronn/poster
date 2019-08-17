@@ -1,0 +1,8 @@
+Thumbs.db
+*.log
+.DS_Store
+*.aux
+*.log
+*.pdf
+*.bbl
+*.out
