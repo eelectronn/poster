@@ -4,19 +4,41 @@
 \usepackage{lipsum}
 \usepackage{multicol}
 \usepackage{adjustbox}
+\usepackage[abs]{overpic}
 \setlength{\columnsep}{1cm}
 \begin{document}
 \title{orthosymplectic}
 \author{}
 \maketitle
 \block{Terminology}{
-	\bigskip
-	\begin{multicols*}{2}
+	\begin{multicols*}{3}
     \lipsum[1]
-    \vfill\null
+    \vfill
+    \columnbreak
+    \lipsum[1]
+    \vfill
     \columnbreak
     \lipsum[1]
   	\end{multicols*}
+}
+\block{Algorithm}{
+	\begin{minipage}[t]{0.4\linewidth}
+	\innerblock{description - two line arrow}{
+		\lipsum[1]
+	}
+	\end{minipage}
+	\begin{minipage}[t]{0.2\linewidth}
+	\begin{center}
+	\begin{overpic}[scale=0.5, trim=0 -9cm 0 0, clip]{arrows}
+	\end{overpic}
+	\end{center}
+	\end{minipage}
+	\begin{minipage}[t]{0.4\linewidth}
+	\innerblock{description - two line arrow}{
+		\lipsum[1]
+	}
+	\end{minipage}
+	\lipsum[1]
 }
 \begin{columns}
 \column{.33}
@@ -27,7 +49,24 @@
 	\item point1
 	\item point2
 	\end{itemize}}
-	\lipsum[2]
+	\lipsum[1]
+	\bigskip
+	\innerblock{here is math for fun}
+	{
+	\begin{center}
+	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+	\end{center}
+	}
+}
+\column{.34}
+\block{More examples of latex}{
+	\bigskip
+	put stuff in boxes.\\
+	\coloredbox{\begin{itemize}
+	\item point1
+	\item point2
+	\end{itemize}}
+	\lipsum[1]
 	\bigskip
 	\innerblock{here is math for fun}
 	{
@@ -44,7 +83,7 @@
 	\item point1
 	\item point2
 	\end{itemize}}
-	\lipsum[2]
+	\lipsum[1]
 	\bigskip
 	\innerblock{here is math for fun}
 	{
@@ -52,40 +91,6 @@
 	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
 	\end{center}
 	}
-}
-\column{.33}
-\block{More examples of latex}{
-	\bigskip
-	put stuff in boxes.\\
-	\coloredbox{\begin{itemize}
-	\item point1
-	\item point2
-	\end{itemize}}
-	\lipsum[2]
-	\bigskip
-	\innerblock{here is math for fun}
-	{
-	\begin{center}
-	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
-	\end{center}
-	}
-	\bigskip
-	\innerblock{More examples of latex}{
-	\bigskip
-	put stuff in boxes.\\
-	\coloredbox{\begin{itemize}
-	\item point1
-	\item point2
-	\end{itemize}}
-	\lipsum[2]
-	\bigskip
-	\innerblock{here is math for fun}
-	{
-	\begin{center}
-	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
-	\end{center}
-	}
-}
 }
 \end{columns}
 \end{document}
