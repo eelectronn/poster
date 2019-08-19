@@ -1,23 +1,22 @@
 \documentclass[25pt, a0paper]{tikzposter}
 \usepackage{graphics}
-\usetheme{Envelope}
+\usetheme{Rays}
 \usepackage{lipsum}
 \usepackage{multicol}
 \usepackage{adjustbox}
+\setlength{\columnsep}{1cm}
 \begin{document}
-\title{This is amazing}
-\author{Harsh}
+\title{orthosymplectic}
+\author{}
 \maketitle
 \block{Terminology}{
 	\bigskip
-	\begin{minipage}[t]{0.7\linewidth}
-	\lipsum[1]
-	\end{minipage}%
-	\begin{adjustbox}{valign=t}
-	\begin{minipage}[t]{0.3\linewidth}
-	\lipsum[1]
-	\end{minipage}
-	\end{adjustbox}
+	\begin{multicols*}{2}
+    \lipsum[1]
+    \vfill\null
+    \columnbreak
+    \lipsum[1]
+  	\end{multicols*}
 }
 \begin{columns}
 \column{.33}
@@ -37,8 +36,56 @@
 	\end{center}
 	}
 }
-
 \column{.33}
-
+\block{More examples of latex}{
+	\bigskip
+	put stuff in boxes.\\
+	\coloredbox{\begin{itemize}
+	\item point1
+	\item point2
+	\end{itemize}}
+	\lipsum[2]
+	\bigskip
+	\innerblock{here is math for fun}
+	{
+	\begin{center}
+	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+	\end{center}
+	}
+}
+\column{.33}
+\block{More examples of latex}{
+	\bigskip
+	put stuff in boxes.\\
+	\coloredbox{\begin{itemize}
+	\item point1
+	\item point2
+	\end{itemize}}
+	\lipsum[2]
+	\bigskip
+	\innerblock{here is math for fun}
+	{
+	\begin{center}
+	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+	\end{center}
+	}
+	\bigskip
+	\innerblock{More examples of latex}{
+	\bigskip
+	put stuff in boxes.\\
+	\coloredbox{\begin{itemize}
+	\item point1
+	\item point2
+	\end{itemize}}
+	\lipsum[2]
+	\bigskip
+	\innerblock{here is math for fun}
+	{
+	\begin{center}
+	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+	\end{center}
+	}
+}
+}
 \end{columns}
 \end{document}
