@@ -1,96 +1,242 @@
 \documentclass[25pt, a0paper]{tikzposter}
-\usepackage{graphics}
+\usepackage{graphics,amsmath,amssymb,mathtools,amsfonts,ytableau}
 \usetheme{Rays}
+% \usebackgroundstyle{Rays}
 \usepackage{lipsum}
 \usepackage{multicol}
 \usepackage{adjustbox}
 \usepackage[abs]{overpic}
+\newcommand{\ds}{\displaystyle}
+\renewcommand{\textit}[1]{\emph{\textbf{#1}}}
 \setlength{\columnsep}{1cm}
 \begin{document}
-\title{orthosymplectic}
-\author{}
+\title{\LARGE A combinatorial proof for two of the orthosymplectic Cauchy identities}
+\author{\LARGE Aalekh Patel, Harsh Patel, Anna Stokke}
+% \institute{University of Winnipeg}
 \maketitle
-\block{Terminology}{
+\block{Abstract}{In 1998, G. Benkart, C.L. Shader, and A. Ram provided representation theoretic proofs of two Cauchy identities. In this poster, we provide an outline of a combinatorial proof of both the Cauchy identities. We present the consequences of two algorithms: The SPO algorithm, and The Dual SPO algorithm that imply the Cauchy identities.}
+\block{Terminology}
+{	
 	\begin{multicols*}{3}
-    \lipsum[1]
-    \vfill
-    \columnbreak
-    \lipsum[1]
-    \vfill
-    \columnbreak
-    \lipsum[1]
+	\small
+		A \textit{partition} of a positive integer $n$ is a k-tuple of positive integers $\lambda = (\lambda_1, \ldots,  \lambda_k) $ with $\lambda_1 \ge \lambda_2 \ge \ldots \ge \lambda_k $ and $|\lambda| = \sum_{i=1}^{k} \lambda_i = n $.\\
+		A \textit{Young tableau} is the filling of a left-justified box diagram with the entries from the set $\{1, 2, \ldots, n\}$.\\
+		A \textit{semi-standard Young tableau} is a Young tableau with the entries in the rows weakly increasing from left to right and the entries in the columns strictly increasing from top to bottom.
+		 A shape (or partition) is said to be \textit{even}, if number of boxes in each row is even.\\
+		The \textit{weight} of a tableau $T$ is a monomial in the variables $X = \{x_1, \ldots, x_n\}$ defined as $ wt(T) = \prod_{i=1}^{n} x_i^{\alpha_i} $ where $\alpha_i $ denotes the number of times $i$ appeared in $T$.\\
+		The \textit{Schur function} of $\lambda$ is defined as $ s_\lambda(X) = \sum_{T} wt(T) $, where $sh(T)=\lambda$ and T is a semi-standard Young tableau.
+		\vfill
+		\columnbreak
+    	A tableau $T$ is \textit{symplectic} if every entry $i \in T$ lies in a row greater than or equal to $i$.
+		Let $B_0 = \{1, \overline{1}, 2, \overline{2}, \ldots, m, \overline{m}\}$ with $1 < \overline{1} < 2 < \overline{2} < \ldots < m < \overline{m} $.\\
+		Let $B_1 = \{1^\circ, 2^\circ, \ldots, n^\circ\} $ and $B = B_0 \cup B_1 $. We order $B$ as $1 < \overline{1} < 2 < \overline{2} < \ldots < m < \overline{m} < 1^\circ < 2^\circ < \ldots < n^\circ $.
+		An \textit{spo(2m, n)-tableau} of shape $\lambda$ contains entries from $B$, such that a portion of shape $\mu$, where $\mu \subseteq \lambda $ is filled with entries from $B_0 $ and is semi-standard symplectic. The remaining skew shape $\lambda/\mu$ is filled with entries from $B_1 $ and are weakly increasing in columns from top to bottom and strictly increasing in rows from left to right.
+		Let $Y = \{y_1, y_2, \ldots, y_n\} $ and $Z = \overline{X} \cup Y $.\\
+		The \textit{weight} of an spo-tableau $T$ is a monomial on variables $Z$, defined as follows:
+		$wt(T) = \prod_{i=1}^{m}x_i^{\alpha_i - \alpha_{\overline{i}}} \prod_{j=1}^{n}y_j^{\alpha_{j^\circ}}$,
+		where $\alpha_i, \alpha_{\overline{i}}$ and $\alpha_{j^\circ} $ denotes the number of times $i, \overline{i} $ and $j^\circ $appeared in $T$ respectively.
+		\vfill
+		\columnbreak
+		The \textit{orthosymplectic schur function} for a shape $\lambda$ is defined as $spo_\lambda(Z) = \sum_{T} wt(T) $, where $T$ is an spo-tableau.\\
+		Define a \textit{two line array} $\pi$ of length $t$ to be an object that contains $t$ columns each containing two elements as follows:
+		$\small\pi = 
+			\begin{pmatrix}
+				a_1 & a_2  & \dots & a_t\\
+				b_1 & b_2 & \dots & b_t
+			\end{pmatrix}
+		$.\\
+		Here $\ds \binom{a_i}{b_i}$ for all $i \in {1, \dots, t}$ are columns.
+		\\A \textit{multivariate generating function} is a multivariate polynomial that stores as its coefficients, an infinite sequence of constants that count mathematical objects.
+		\\George Polya gives an intuitive description of a generating function as ``a device somewhat similar to a bag. Instead of carrying many little objects detachedly, which could be embarassing, we put them all in a bag, and then we have only one object to carry, the bag.'' \emph{(Mathematics and Plausible Reasoning(1954))}.
+% 	\columnbreak
+% 		Define $S^*$ to be the set of all two line arrays where the top row contains elements from $[q]$ and the bottom row contains elements from $B = B_0 \cup B_1$ with the following added constraint. If $\pi \in S$ then a column $\ds \binom{i}{j}$ with $j \in B_0$ occurs at most once in $\pi$.\\
+% 		For example,
+% 		\begin{equation*}
+% 			\pi\ds = 
+% 			\begin{pmatrix}
+% 				1&1&2\\
+% 				1 & 1&3^\circ
+% 			\end{pmatrix} \implies \pi \not\in S^*
+% 		\end{equation*}
+% 		A \emph{Burge} two line array contains columns $\ds \binom{i}{j}$ with $j \geq i$. We say a \emph{Burge} two line array does not contain \emph{fixed points} if it does not contain columns of the form $\ds \binom{i}{i}$.
+% 	\columnbreak
   	\end{multicols*}
 }
-\block{Algorithm}{
-	\begin{minipage}[t]{0.4\linewidth}
-	\innerblock{description - two line arrow}{
-		\lipsum[1]
+\block{The SPO Algorithm}{
+	\begin{minipage}[t]{0.45\linewidth}
+	\innerblock{The Set $S$ of Two Line Arrays}{
+		Define $S$ to be the set of all two line arrays where the top row contains elements from $[q]$ and the bottom row contains elements from $B = B_0 \cup B_1$ with the following added constraint. A column $\ds \binom{i}{j}$ with $j \in B_1$ occurs at most once in $\pi$ iff $\pi \in S$\\
+		For example,
+		\begin{equation}
+			\pi = 
+			\begin{pmatrix}
+				1&1&2&3\\
+				1&\overline{2}&\overline{1}& 2^\circ
+			\end{pmatrix} \implies \pi \in S.
+		\end{equation}
 	}
 	\end{minipage}
-	\begin{minipage}[t]{0.2\linewidth}
+	\begin{minipage}[t]{0.1\linewidth}
 	\begin{center}
-	\begin{overpic}[scale=0.5, trim=0 -9cm 0 0, clip]{arrows}
+	\begin{overpic}[scale=0.25, trim= 0 -15cm 0 0, clip]{arrows}
 	\end{overpic}
 	\end{center}
 	\end{minipage}
-	\begin{minipage}[t]{0.4\linewidth}
-	\innerblock{description - two line arrow}{
-		\lipsum[1]
+	\begin{minipage}[t]{0.45\linewidth}
+	\innerblock{The Set $ Spo(m, 2n) \times SSYT(\lambda) \times SSYT_{\text{ even}}(\lambda)$}{
+		The set of all triples $(\ds \tilde{P}_{\lambda}, P_{\lambda}, P_{\beta})$ where $\beta'$ is an even shape, $\ds \tilde{P}_\lambda$ is an orthosymplectic Young tableau of shape $\ds \lambda$, $\ds P_{\lambda}$ is a semi-standard Young tableau of shape $\ds \lambda$.\\
+		For example, the SPO algorithm gives us that for $\pi$ in $(1)$, 
+		\begin{equation}
+		SPO(\pi) = T =  (\tilde{P}_{\lambda}, P_{\lambda}, P_{\beta}) = \Bigg(
+		\begin{ytableau}
+			\overline{1} & 2^\circ
+		\end{ytableau}\,,\,
+		\begin{ytableau}
+			1\\
+			3
+		\end{ytableau}\,,\,
+		\begin{ytableau}
+			1\\
+			2
+		\end{ytableau}
+		\Bigg)
+		\end{equation}
+		\vspace*{0.5cm}
+	}
+	\end{minipage}\\
+	The SPO algorithm maps the two line array $\pi$ in equation $(1)$ to a triple $T$ in equation $(2)$. We evaluate that the generating function for the number of two line arrays in $S$ is precisely
+	\begin{equation}
+	\label{genfS}
+	\prod_{i=1}^m \prod_{j=1}^q (1+t_i y_j) \prod_{r=1}^m \prod_{j=1}^q (1-x_ry_j)^{-1} (1-x_r^{-1}y_j)^{-1}
+	\end{equation}
+	We also evaluate that the generating function for the number of triples $\ds (\tilde{P}_\lambda, P_\lambda, P_\beta)$ is precisely
+	\begin{equation}
+	\label{genftriplemain}
+	\sum_{\beta' even} s_\beta(y_1, \dots, y_q) \sum_{\lambda} spo_\lambda(x_1^{\pm 1}, \dots, x_m^{\pm 1}, t_1, \dots, t_n) \cdot s_\lambda(y_1, \dots, y_q)
+	\end{equation}
+	 In our paper, we rigorously prove that the SPO algorithm is a bijection. The bijection ensures that the two expressions are equal and we obtain a combinatorial proof of the Cauchy identity
+	 \begin{equation}
+	 \prod_{i=1}^m \prod_{j=1}^q (1+t_i y_j) \prod_{r=1}^m \prod_{j=1}^q (1-x_ry_j)^{-1} (1-x_r^{-1}y_j)^{-1} = \sum_{\beta' even} s_\beta(y_1, \dots, y_q) \sum_{\lambda} spo_\lambda(x_1^{\pm 1}, \dots, x_m^{\pm 1}, t_1, \dots, t_n) \cdot s_\lambda(y_1, \dots, y_q)
+	 \end{equation}
+	 A direct consequence of the SPO algorithm is yet another identity:
+	 \begin{equation}
+	 \text{If } k \geq nq\text{, then} \quad \sum_{\substack{a, b\\a+b=k}}\Bigg(\sum_{\lambda \vdash a}f_\lambda^{SPO}(B)\cdot f_\lambda^{SSYT}([q]) \sum_{\substack{\beta \vdash b\\\beta^T \text{even}}}f_\beta^{SSYT}([q]) \Bigg) = \sum_{i=0}^k \binom{nq}{i} (2mq)^{k-i}
+	 \end{equation}
+}
+\block{The Dual SPO Algorithm}{
+	\begin{minipage}[t]{0.45\linewidth}
+	\innerblock{The Set $S^*$ of Two Line Arrays}{
+		Define $S^*$ to be the set of all two line arrays where the top row contains elements from $[q]$ and the bottom row contains elements from $B = B_0 \cup B_1$ with the following added constraint. A column $\ds \binom{i}{j}$ with $j \in B_0$ occurs at most once in $\pi$ iff $\pi \in S^*$\\
+		For example,
+		\begin{equation}
+		\label{picorrect}
+			\pi = 
+			\begin{pmatrix}
+				1&2&2&3\\
+				\overline{2}&1^\circ&1^\circ & 2^\circ
+			\end{pmatrix} \implies \pi \in S^*.
+		\end{equation}
 	}
 	\end{minipage}
-	\lipsum[1]
-}
-\begin{columns}
-\column{.33}
-\block{More examples of latex}{
-	\bigskip
-	put stuff in boxes.\\
-	\coloredbox{\begin{itemize}
-	\item point1
-	\item point2
-	\end{itemize}}
-	\lipsum[1]
-	\bigskip
-	\innerblock{here is math for fun}
-	{
+	\begin{minipage}[t]{0.1\linewidth}
 	\begin{center}
-	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+	\begin{overpic}[scale=0.25, trim= 0 -15cm 0 0, clip]{arrows}
+	\end{overpic}
 	\end{center}
+	\end{minipage}
+	\begin{minipage}[t]{0.45\linewidth}
+	\innerblock{The Set $ Spo(m, 2n) \times SSYT(\lambda^T) \times SSYT_{\text{ even}}(\lambda)$}{
+		The set of all triples $(\ds \tilde{P}_{\lambda}, P_{\lambda}, P_{\beta})$ where $\beta$ is an even shape, $\ds \tilde{P}_\lambda$ is an orthosymplectic Young tableau of shape $\ds \lambda$, $\ds P_{\lambda^T}$ is a semi-standard Young tableau of shape $\ds \lambda^T$.\\
+		For example, the Dual SPO algorithm gives us that for $\pi$ in $\ref{picorrect}$, 
+		\begin{equation}
+		\label{dualtriple}
+		Dual \,SPO(\pi) = T =  (\tilde{P}_{\lambda}, P_{\lambda}, P_{\beta}) = \Bigg(
+		\begin{ytableau}
+			\overline{1} & 2^\circ
+		\end{ytableau}\,,\,
+		\begin{ytableau}
+			1\\
+			3
+		\end{ytableau}\,,\,
+		\begin{ytableau}
+			1\\
+			2
+		\end{ytableau}
+		\Bigg)
+		\end{equation}
+		\vspace*{1.5cm}
 	}
+	\end{minipage}\\
+	The Dual SPO algorithm maps the two line array $\pi$ in $\ref{picorrect}$ to a triple $T$ in equation $\ref{dualtriple}$. We evaluate that the generating function for the number of two line arrays in $S^*$ is precisely
+	\begin{equation}
+	\label{genfS}
+	\prod_{i=1}^m \prod_{j=1}^q (1+x_i y_j)(1+x_i^{-1}y_j) \prod_{i=1}^n \prod_{j=1}^q (1-t_iy_j)^{-1}
+	\end{equation}
+	We also evaluate that the generating function for the number of triples $\ds (\tilde{P}_\lambda, P_{\lambda^T}, P_\beta)$ is precisely
+	\begin{equation}
+	\label{genftripledual}
+	\sum_{\beta \,even} s_\beta(y_1, \dots, y_q) \sum_{\lambda} spo_\lambda(x_1^{\pm 1}, \dots, x_m^{\pm 1}, t_1, \dots, t_n) \cdot s_{\lambda^T}(y_1, \dots, y_q)
+	\end{equation}
+	 In our paper, we rigorously prove that the Dual SPO algorithm is a bijection and we obtain a combinatorial proof of the Dual Cauchy identity
+	 \begin{equation}
+	 \prod_{i=1}^m \prod_{j=1}^q (1+x_i y_j)(1+x_i^{-1}y_j) \prod_{i=1}^n \prod_{j=1}^q (1-t_iy_j)^{-1} = \sum_{\beta \,even} s_\beta(y_1, \dots, y_q) \sum_{\lambda} spo_\lambda(x_1^{\pm 1}, \dots, x_m^{\pm 1}, t_1, \dots, t_n) \cdot s_{\lambda^T}(y_1, \dots, y_q)
+	 \end{equation}
+	 A direct consequence of the Dual SPO algorithm is yet another identity:
+	 \begin{equation}
+	 \text{If } k \geq nq\text{, then} \quad \sum_{\substack{a, b\\a+b=k}}\Bigg(\sum_{\lambda \vdash a}f_\lambda^{SPO}(B)\cdot f_\lambda^{SSYT}([q]) \sum_{\substack{\beta \vdash b\\\beta^T \text{even}}}f_\beta^{SSYT}([q]) \Bigg) = \sum_{i=0}^k \binom{nq}{i} (2mq)^{k-i}
+	 \end{equation}
 }
-\column{.34}
-\block{More examples of latex}{
-	\bigskip
-	put stuff in boxes.\\
-	\coloredbox{\begin{itemize}
-	\item point1
-	\item point2
-	\end{itemize}}
-	\lipsum[1]
-	\bigskip
-	\innerblock{here is math for fun}
-	{
-	\begin{center}
-	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
-	\end{center}
-	}
-}
-\column{.33}
-\block{More examples of latex}{
-	\bigskip
-	put stuff in boxes.\\
-	\coloredbox{\begin{itemize}
-	\item point1
-	\item point2
-	\end{itemize}}
-	\lipsum[1]
-	\bigskip
-	\innerblock{here is math for fun}
-	{
-	\begin{center}
-	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
-	\end{center}
-	}
-}
-\end{columns}
+% \begin{columns}
+% \column{.33}
+% \block{More examples of latex}{
+% 	\bigskip
+% 	put stuff in boxes.\\
+% 	\coloredbox{\begin{itemize}
+% 	\item point1
+% 	\item point2
+% 	\end{itemize}}
+% 	\lipsum[1]
+% 	\bigskip
+% 	\innerblock{here is math for fun}
+% 	{
+% 	\begin{center}
+% 	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+% 	\end{center}
+% 	}
+% }
+% \column{.34}
+% \block{More examples of latex}{
+% 	\bigskip
+% 	put stuff in boxes.\\
+% 	\coloredbox{\begin{itemize}
+% 	\item point1
+% 	\item point2
+% 	\end{itemize}}
+% 	\lipsum[1]
+% 	\bigskip
+% 	\innerblock{here is math for fun}
+% 	{
+% 	\begin{center}
+% 	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+% 	\end{center}
+% 	}
+% }
+% \column{.33}
+% \block{More examples of latex}{
+% 	\bigskip
+% 	put stuff in boxes.\\
+% 	\coloredbox{\begin{itemize}
+% 	\item point1
+% 	\item point2
+% 	\end{itemize}}
+% 	\lipsum[1]
+% 	\bigskip
+% 	\innerblock{here is math for fun}
+% 	{
+% 	\begin{center}
+% 	$|\lambda| = \sum_{i=1}^{k} \lambda_i = n $
+% 	\end{center}
+% 	}
+% }
+% \end{columns}
 \end{document}
